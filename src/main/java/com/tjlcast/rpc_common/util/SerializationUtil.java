@@ -62,8 +62,8 @@ public class SerializationUtil {
 
     @SuppressWarnings("unchecked")
     private static <T> Schema<T> getSchema(Class<T> cls) {
-        Schema<T> schema = (Schema<T>)cachedSchema.putIfAbsent(cls.getClass(),
-                RuntimeSchema.createFrom(cls.getClass()));
+        Schema<T> schema = (Schema<T>)cachedSchema.getOrDefault(cls.getClass(),
+                RuntimeSchema.createFrom(cls));
         return schema ;
     }
 }

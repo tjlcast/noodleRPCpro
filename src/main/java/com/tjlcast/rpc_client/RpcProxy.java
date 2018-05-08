@@ -29,6 +29,15 @@ public class RpcProxy {
         this.serviceAddress = serviceAddress ;
     }
 
+    public RpcProxy(ServiceDiscovery serviceDiscovery) {
+        this.serviceDiscovery = serviceDiscovery;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <T> T create(final Class<T> interfaceClass) {
+        return create(interfaceClass, "");
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T create(final Class<T> interfaceClass, final String serviceVersion) {
         // 创建动态代理对象
@@ -36,12 +45,12 @@ public class RpcProxy {
                 interfaceClass.getClassLoader(),
                 new Class<?>[]{interfaceClass},
                 new InvocationHandler() {
-                    @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         // 创建 RPC 请求对象并设置请求属性
                         RpcRequest request = new RpcRequest() ;
                         request.setRequestId(UUID.randomUUID().toString()) ;
                         request.setInterfaceName(method.getDeclaringClass().getName());
+                        request.setMethodName(method.getName());
                         request.setServiceVersion(serviceVersion);
                         request.setParameterType(method.getParameterTypes());
                         request.setParameter(args);

@@ -3,6 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/noodleRPCpro.iml" filepath="$PROJECT_DIR$/noodleRPCpro.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample_api/sample_api.iml" filepath="$PROJECT_DIR$/sample_api/sample_api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample_client/sample_client.iml" filepath="$PROJECT_DIR$/sample_client/sample_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sample_server/sample_server.iml" filepath="$PROJECT_DIR$/sample_server/sample_server.iml" />
     </modules>
   </component>
 </project>

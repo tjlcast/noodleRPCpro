@@ -37,7 +37,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest>{
             Object result = handle(rpcRequest);
             response.setResult(result);
         } catch (Exception e) {
-            LOGGER.error("handle result failure", e) ;
+            LOGGER.error(String.format("handle result failure: %s", e)) ;
             response.setException(e);
         }
 
@@ -64,9 +64,9 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest>{
         Class<?>[] parameterType = rpcRequest.getParameterType();
         Object[] parameter = rpcRequest.getParameter();
 
+        // 使用 CGLib 执行反射调用
         FastClass serviceFastClass = FastClass.create(serviceClass);
-        FastMethod method = serviceFastClass.getMethod(methodName, parameterType);
-
-        return method.invoke(serviceBean, parameter) ;
+        FastMethod serviceFastMethod = serviceFastClass.getMethod(methodName, parameterType);
+        return serviceFastMethod.invoke(serviceBean, parameter);
     }
 }

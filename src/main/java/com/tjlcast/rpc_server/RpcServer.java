@@ -1,5 +1,9 @@
 package com.tjlcast.rpc_server;
 
+import com.tjlcast.rpc_common.bean.RpcRequest;
+import com.tjlcast.rpc_common.bean.RpcResponse;
+import com.tjlcast.rpc_common.codec.RpcDecode;
+import com.tjlcast.rpc_common.codec.RpcEncode;
 import com.tjlcast.rpc_common.util.StringUtil;
 import com.tjlcast.rpc_registry.ServiceRegistry;
 import io.netty.bootstrap.ServerBootstrap;
@@ -29,7 +33,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
 
     private ServiceRegistry serviceRegistry ;
 
-    private HashMap<String, Object> handerMap = new HashMap<String, Object>() ;
+    private HashMap<String, Object> handlerMap = new HashMap<String, Object>() ;
 
     public RpcServer(String serviceAddress) {
         this.serviceAddress = serviceAddress ;
@@ -41,6 +45,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
     }
 
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        // 扫描带有 RpcService 注解的类并初始化 handlerMap 对象
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(RpcService.class);
         if (MapUtils.isNotEmpty(beansWithAnnotation)) {
             for (Object serviceBean : beansWithAnnotation.values()) {
@@ -50,7 +55,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
                 if (StringUtil.isNotEmpty(serviceVersion)) {
                     serviceName += "-" + serviceVersion ;
                 }
-                handerMap.put(serviceName, serviceBean) ;
+                handlerMap.put(serviceName, serviceBean) ;
             }
         }
     }
@@ -66,9 +71,9 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
             bootstrap.childHandler(new ChannelInitializer<SocketChannel>() {
                 protected void initChannel(SocketChannel socketChannel) throws Exception {
                     ChannelPipeline pipeline = socketChannel.pipeline();
-                    pipeline.addLast(null) ;
-                    pipeline.addLast(null) ;
-                    pipeline.addLast(null) ;
+                    pipeline.addLast(new RpcDecode(RpcRequest.class)); // 解码 RPC 请求
+                    pipeline.addLast(new RpcEncode(RpcResponse.class)); // 编码 RPC 响应
+                    pipeline.addLast(new RpcServerHandler(handlerMap)); // 处理 RPC 请求
                 }
             }) ;
             bootstrap.option(ChannelOption.SO_BACKLOG, 1024) ;
@@ -81,7 +86,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
             ChannelFuture future = bootstrap.bind(host, port).sync();
 
             if (serviceRegistry != null) {
-                for (String interfaceName : handerMap.keySet()) {
+                for (String interfaceName : handlerMap.keySet()) {
                     serviceRegistry.registry(interfaceName, serviceAddress);
                     LOGGER.debug("registry service: {} => {}", interfaceName, serviceAddress);
                 }

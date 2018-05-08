@@ -8,6 +8,12 @@
     <artifactId>noodleRPC-pro</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>sample</module>
+        <module>sample_api</module>
+        <module>sample_client</module>
+        <module>sample_server</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -100,5 +106,26 @@
             <version>${version.commons-collections}</version>
         </dependency>
     </dependencies>
+
+    <build>
+        <finalName>device-management</finalName>
+        <plugins>  <!-- 使用的插件列表 。 -->
+            <plugin>  <!--maven编译插件-->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.5.1</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
