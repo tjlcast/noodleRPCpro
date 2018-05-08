@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="noodleRPCpro" target="1.5" />
+      <module name="rpc_client" target="1.5" />
+      <module name="rpc_registry" target="1.5" />
+      <module name="rpc_server" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
