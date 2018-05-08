@@ -8,7 +8,7 @@ import com.tjlcast.rpc_server.RpcService;
  */
 
 @RpcService(value = HelloService.class, version = "sample.hello1")
-public class HelloServiceImpl2 implements HelloService {
+public class HelloServiceImpl1 implements HelloService {
 
     public String hello(String name) {
         return "你好! " + name;
