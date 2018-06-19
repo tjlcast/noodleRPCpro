@@ -27,6 +27,7 @@ public class RpcServerHandler extends SimpleChannelInboundHandler<RpcRequest>{
         this.handleMap = handleMap ;
     }
 
+    @Override
     protected void channelRead0(ChannelHandlerContext channelHandlerContext, RpcRequest rpcRequest) throws Exception {
         // 创建并初始化 RPC 响应对象
         RpcResponse response = new RpcResponse() ;
