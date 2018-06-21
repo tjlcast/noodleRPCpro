@@ -13,7 +13,11 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Created by tangjialiang on 2018/5/7.
  *
- * 序列化工具 (基于protostuff)
+ * 序列化工具 (基于 protostuff 和 Objenesis)
+ *
+ * 其中 protostuff
+ *      -   ProtobufIOUtil.toByteArray
+ *      -   ProtobufIOUtil.mergeFrom
  */
 public class SerializationUtil {
 
