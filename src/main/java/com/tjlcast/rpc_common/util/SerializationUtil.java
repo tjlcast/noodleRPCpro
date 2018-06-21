@@ -60,6 +60,12 @@ public class SerializationUtil {
         }
     }
 
+    /**
+     * 由上面两个函数调用，serialize and deserialize
+     * @param cls
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
     private static <T> Schema<T> getSchema(Class<T> cls) {
         Schema<T> schema = (Schema<T>)cachedSchema.getOrDefault(cls.getClass(),
