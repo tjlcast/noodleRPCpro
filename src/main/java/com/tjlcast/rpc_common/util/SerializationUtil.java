@@ -18,6 +18,9 @@ import java.util.concurrent.ConcurrentHashMap;
  * 其中 protostuff
  *      -   ProtobufIOUtil.toByteArray
  *      -   ProtobufIOUtil.mergeFrom
+ *
+ * 其中 Objenesis
+ *      -   主要基于 Clazz 字节码构建一个'空'对象
  */
 public class SerializationUtil {
 
