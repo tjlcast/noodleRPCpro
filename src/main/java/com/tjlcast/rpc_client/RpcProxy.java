@@ -16,6 +16,13 @@ import java.util.UUID;
  * Created by tangjialiang on 2018/5/7.
  *
  * RPC 代理（用于创建 RPC 服务代理）
+ *
+ * 用户通过该类得到一个服务 接口 的实例
+ *
+ * 代理实例拦截所有到代理的调用。
+ *  1、生成request
+ *  2、调用服务发现服务
+ *  3、调用客户端的net
  */
 public class RpcProxy {
 
