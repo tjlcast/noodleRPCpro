@@ -52,6 +52,7 @@ public class RpcProxy {
                 interfaceClass.getClassLoader(),
                 new Class<?>[]{interfaceClass},
                 new InvocationHandler() {
+                    @Override
                     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
                         // 创建 RPC 请求对象并设置请求属性
                         RpcRequest request = new RpcRequest() ;
