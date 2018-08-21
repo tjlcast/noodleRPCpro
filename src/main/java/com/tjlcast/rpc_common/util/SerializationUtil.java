@@ -20,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
  *      -   ProtobufIOUtil.mergeFrom
  *
  * 其中 Objenesis
- *      -   主要基于 Clazz 字节码构建一个'空'对象
+ *      -   主要基于 Clazz 字节码构建一个'空'对象, protostuff会把字节码通过schema生成 对象实例。
  */
 public class SerializationUtil {
 

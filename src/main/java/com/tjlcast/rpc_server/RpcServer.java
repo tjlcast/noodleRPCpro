@@ -44,6 +44,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
         this.serviceRegistry = serviceRegistry ;
     }
 
+    @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         // 扫描带有 RpcService 注解的类并初始化 handlerMap 对象
         Map<String, Object> beansWithAnnotation = applicationContext.getBeansWithAnnotation(RpcService.class);
@@ -60,6 +61,7 @@ public class RpcServer implements ApplicationContextAware, InitializingBean{
         }
     }
 
+    @Override
     public void afterPropertiesSet() throws Exception {
         EventLoopGroup bossGroup = new NioEventLoopGroup() ;
         EventLoopGroup workGroup = new NioEventLoopGroup() ;
