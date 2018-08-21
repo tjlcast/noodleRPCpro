@@ -22,7 +22,7 @@ import java.util.UUID;
  * 代理实例拦截所有到代理的调用。
  *  1、生成request
  *  2、调用服务发现服务
- *  3、调用客户端的net
+ *  3、创建并调用客户端的net (创建一个netty环境 并 发送一条信息)
  */
 public class RpcProxy {
 
